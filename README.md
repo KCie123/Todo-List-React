@@ -40,3 +40,68 @@ The **Todo List with Recently Deleted** application allows users to add new task
     npm start
 
 4. Open the browser and navigate to http://localhost:3000.
+
+TodoApp/
+│
+├── public/                     # Public assets (e.g., index.html)
+├── src/                        # Source files
+│   ├── App.js                  # Main component managing the state and sections
+│   ├── App.css                 # Global styles for layout and appearance
+│   ├── TodoForm.js             # Component for adding new tasks
+│   ├── TodoForm.css            # Styles for the task input form
+│   ├── TodoList.js             # Component for displaying tasks based on their status
+│   ├── TodoList.css            # Styles for the task list
+├── package.json                # Project dependencies and scripts
+└── README.md                   # This documentation file
+
+## Class Descriptions
+
+### `App.js`
+- **Manages the entire state** of the application, including tasks and recently deleted items.
+- **Components:**
+  - **TodoForm:** A form component for adding new tasks.
+  - **TodoList:** A list component that displays tasks in different sections such as "Pending", "In Progress", "Completed", and "Recently Deleted".
+- **Handles local storage** for saving tasks and deleted items across sessions.
+- **Key Functions:**
+  - `addTodo(text)`: Adds a new task to the `todos` state with a default status of "pending".
+  - `updateTodoStatus(id, status)`: Updates the status of a task (e.g., from "pending" to "in progress").
+  - `deleteTodo(id)`: Moves a task from the `todos` state to the `deletedTodos` state.
+  - `recoverTodo(id)`: Recovers a task from `deletedTodos` back into the `todos` list.
+  - `permanentlyDeleteTodo(id)`: Permanently removes a task from `deletedTodos`.
+
+### `TodoForm.js`
+- **Props:**
+  - `onSubmit`: A function passed from the parent `App.js` to handle new task submission.
+- **Handles user input** and task submission.
+- **Renders** a form with an input field and a button.
+- **Key Function:**
+  - `handleSubmit(e)`: Prevents form default behavior, submits the task using `onSubmit`, and clears the input field.
+
+### `TodoList.js`
+- **Props:**
+  - `todos`: An array of tasks to be displayed.
+  - `onStatusChange`: A function for changing the status of tasks (e.g., "Start" to "Finish").
+  - `onDelete`: A function for moving tasks to the "Recently Deleted" section.
+  - `onRecover`: (optional) A function to recover a task from the "Recently Deleted" section.
+  - `onPermanentlyDelete`: (optional) A function to permanently remove a task from the application.
+  - `showRecoverButtons`: A boolean that determines if the "Recover" buttons should be displayed.
+- **Renders** a list of tasks and buttons for status updates, deletion, and recovery.
+- **Key Functionality:**
+  - **Recover Mode:** Displays "Recover" and "Permanently Delete" buttons when tasks are in the "Recently Deleted" section.
+  - **Task List View:** Displays tasks based on their current status, with buttons for updating their state or deleting them.
+
+### CSS Styles
+
+#### `App.css`
+- Defines the layout for the entire app, including the todo sections (Pending, In Progress, Completed, Recently Deleted).
+- Provides **responsive design** using media queries to ensure the app works across various screen sizes.
+
+#### `TodoForm.css`
+- Styles the input form for adding new tasks.
+- Utilizes **hover effects** and **focus transitions** for the input and button elements to enhance the user experience.
+
+#### `TodoList.css`
+- Styles each task in the list with hover effects, transitions, and animations.
+- **Strikethrough effect** is applied to tasks that are marked as "completed."
+- Defines **styles for the recover and delete buttons** in the "Recently Deleted" section.
+
